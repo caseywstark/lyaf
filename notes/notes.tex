@@ -1,0 +1,101 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[top=0.5in, bottom=0.5in, left=0.5in, right=0.5in]{geometry}
+
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{natbib}
+
+\input{defs}
+
+\begin{document}
+
+\title{
+    Notes on the Lyman-$\alpha$ Forest 1D Flux Power Spectrum
+}
+
+\author[1]{Casey W. Stark}
+\author[2]{Andreu Font}
+\affil[1]{Department of Astronomy, University of California, Berkeley, CA
+94720, USA}
+\affil[2]{Lawrence Berkeley National Laboratory, 1 Cyclotron Road, Berkeley, CA
+93720, USA}
+
+\maketitle
+
+\section{Approaches}
+
+Let's discuss all the various approaches to modeling the \Lyaf\ and the 1D power
+specifically. We will focus on results from hydro simulations, but other
+approaches might be more appropriate for quick tests, and we should mention more
+advanced possibilities.
+
+\begin{itemize}
+  \item Seljak 2012?
+  \item lognormal realizations
+  \item N-body sim + FGPA
+  \item HPM sim + FGPA
+  \item Hydro sim
+  \item Hydro sim + RT post-processing
+  \item Rad-hydro sim
+\end{itemize}
+
+\section{Misc. Background}
+
+This section is just a repository for the notation, conventions, and other
+things I use frequently but still forget sometimes.
+
+Fourier convention: $x$ is comoving scale and $k = 2 \pi / x$ is the
+corresponding Fourier mode. $\hat{\delta}$ is the Fourier transform of $\delta$.
+$V$ is the periodic volume over which we sample $\delta$.
+
+\begin{equation}
+  \begin{aligned}
+    & \hat \delta(\kk) = \frac{1}{V} \int \delta(\xx) e^{i \kk \cdot \xx} d^3x \\
+    & \delta(\xx) = \frac{V}{(2 \pi)^3} \int \hat \delta(\kk) e^{-i \kk \cdot \xx} d^3k
+  \end{aligned}
+\end{equation}
+
+The convention with no $V$ factors is more common, but this one has the
+advantage that $\delta$ is dimensionless in real and Fourier space. The power
+spectrum is defined as
+
+\begin{equation}
+  P(k) = \langle P(\kk) \rangle = V \langle \hat{\delta} \hat{\delta}^* \rangle
+\end{equation}
+
+where the average $\langle \rangle$ is over shells in $k$-space. Note that the
+power spectrum has units of volume. Sometimes we consider the dimensionless
+power spectrum instead, defined as $\Delta^2(k) = \frac{d \sigma^2}{d \log k}$
+where $\sigma^2 = \frac{1}{(2 \pi)^3} \int P(k) d^3k$ is the mass variance, so
+that in 3D, $\Delta^2(k) = \frac{k^3 P(k)}{2 \pi^2}$.
+
+1D stuff...
+
+\begin{equation}
+  \begin{aligned}
+    & \hat{\delta}_{\rm 1D}(k_\parallel)
+      = L^{-1} \int \delta(x_\parallel)
+        e^{i k_\parallel x_\parallel} dx_\parallel \\
+    & \Delta^2_{\rm 1D}(k_\parallel)
+      = \frac{k_\parallel}{\pi} P_{\rm 1D}(k_\parallel)
+      = \frac{k_\parallel}{\pi} L
+        \langle \hat{\delta}_{\rm 1D} \hat{\delta}_{\rm 1D}^* \rangle \\
+  \end{aligned}
+\end{equation}
+where $L$ is the sightline length and the average $\langle \rangle$ is over
+modes with magnitude $k_\parallel$.
+
+Relation between various cosmological coordinates (at a fixed redshift) is
+$dr = c dt = a dx = \frac{dv}{H}$
+
+Flux perturbations are $\delta_F = F / \mf - 1$, where the mean flux is
+the average over all sightlines at that redshift.
+
+
+
+\bibliographystyle{plain}
+\bibliography{notes}
+
+\end{document}
